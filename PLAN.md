@@ -13,7 +13,7 @@
 
 1. Convert current model into a jinja template[5]
 1. Develop a Python CLI which
-    - generates new models (see **Model submission**) based on a user provided arguments
+    - generates new models (see **Model submission**) based on a< user provided arguments
     - submits the new models to the HPC cluster
     - retrives the output files from the HPC cluster
 
@@ -21,6 +21,6 @@
 
 1. https://hub.docker.com/r/comses/netlogo
 1. https://github.com/singularityhub/docker2singularity
-1. https://github.com/xenon-middleware/pyxenon
 1. https://github.com/xenon-middleware/xenon-docker-images/blob/master/slurm-20/README.md
+1. https://github.com/xenon-middleware/pyxenon
 1. https://palletsprojects.com/p/jinja/
