@@ -2,7 +2,7 @@
 
 - Apptainer (https://apptainer.org/)
 
-## Instructions
+## 1. Prepare and run Apptainer Image
 
 1. Convert [`comses/netlogo`](https://github.com/comses/docker-netlogo/blob/main/Dockerfile) Docker image to an apptainer image
 
@@ -14,26 +14,56 @@
 
 1. Running the model using the apptainer image
 
-    To start a shell run:
-
-    ```shell
-    apptainer shell netlogo_6.3.0.sif
-    ```
-
-    To start NetLogo run:
-
-    ```shell
-    apptainer exec netlogo_6.3.0.sif /opt/netlogo/bin/NetLogo
-    ```
-
     To run an example NetLogo model run:
 
     ```shell
     apptainer exec netlogo_6.3.0.sif /opt/netlogo/netlogo-headless.sh --model "/opt/netlogo/models/IABM Textbook/chapter 4/Wolf Sheep Simple 5.nlogo" --experiment "Wolf Sheep Simple model analysis" --table wolf_sheep_output.csv
     ```
 
-    If you need to change environment variables, for example to increase amount memory to be used by NetLogo, you can add `--env` flag to the command above. Below is an example allocating 8G of memory.
+    If you need to change environment variables, for example to increase amount memory to be used by NetLogo, you can add `--env` flag to the command above. Below is an example allocating 8G of memory by adding `JAVA_TOOL_OPTIONS=-Xmx8G` environment variable.
 
     ```shell
     apptainer exec --env "JAVA_TOOL_OPTIONS=-Xmx8G" netlogo_6.3.0.sif /opt/netlogo/netlogo-headless.sh --model "/opt/netlogo/models/IABM Textbook/chapter 4/Wolf Sheep Simple 5.nlogo" --experiment "Wolf Sheep Simple model analysis" --table wolf_sheep_output.csv
     ```
+
+    ### Other useful commands
+
+    If you want to start a shell inside a container run:
+
+    ```shell
+    apptainer shell netlogo_6.3.0.sif
+    ```
+
+    If you want to start NetLogo GUI run:
+
+    ```shell
+    apptainer exec netlogo_6.3.0.sif /opt/netlogo/bin/NetLogo
+    ```
+
+
+## 2. Prepare and run Apptainer Image
+
+To emulate an HPC system we will run [SLURM](Workload Manager) workload manager in a Docker container. The Docker image we will use canbe found at [`xenon-docker-images`](https://github.com/xenon-middleware/xenon-docker-images.git) repository.
+
+First, pull the latest docker image:
+
+```shell
+docker pull xenonmiddleware/slurm:latest
+```
+
+To start SLURM run:
+
+```shell
+docker run --detach --publish 10022:22 xenonmiddleware/slurm:latest
+```
+
+This will start the service in the background and you will be able to connect to it via ssh.
+
+To connect run:
+
+```shell
+ssh -p 10022 xenon@localhost
+```
+
+The password for xenon user is `javagat`.
+
