@@ -2,7 +2,7 @@
 
 ### Model submission
 
-1. Convert Netlogo docker image[1] into a singularity[2] image
+1. Convert Netlogo docker image[1] into a singularity[2] image or apptainer image
 1. Use Slurm Docker images[3] to imitate the SURF HPC cluster
 1. Use pyxenon[4]
     - to copy the singularity image and the model files
@@ -13,7 +13,7 @@
 
 1. Convert current model into a jinja template[5]
 1. Develop a Python CLI which
-    - generates new models (see **Model submission**) based on a< user provided arguments
+    - generates new models (see **Model submission**) based on a user provided arguments
     - submits the new models to the HPC cluster
     - retrives the output files from the HPC cluster
 
