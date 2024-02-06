@@ -1,6 +1,7 @@
 ## Requirements
 
 - Apptainer (https://apptainer.org/)
+- Python3
 
 ## 1. Prepare and run Apptainer Image
 
@@ -41,7 +42,7 @@
     ```
 
 
-## 2. Prepare and run Apptainer Image
+## 2. Set up a local SLURM cluster
 
 To emulate an HPC system we will run [SLURM](Workload Manager) workload manager in a Docker container. The Docker image we will use canbe found at [`xenon-docker-images`](https://github.com/xenon-middleware/xenon-docker-images.git) repository.
 
@@ -73,6 +74,8 @@ After connecting start a new `bash` shell by running
 bash
 ```
 
+**Note: It may take a few minutes for SLURM service to start. Please be patient ;)**
+
 You can now submit a test jobs:
 
 ```shell
@@ -85,3 +88,24 @@ You can check the status of the job with
 squeue
 sacct
 ```
+
+## 3. Use pyxenon to submit jobs
+
+Create a new Python virtual environment
+
+```shell
+python3 -m venv venv
+```
+
+Activate the virtual environment
+
+```shell
+. ./venv/bin/activate
+```
+
+Upgrade pip
+
+```shell
+pip install --upgrade pip wheel
+```
+

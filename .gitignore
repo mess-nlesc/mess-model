@@ -1,3 +1,8 @@
 *.sif
 *output*csv
 xenon-docker-images
+
+venv
+.venv
+
+*demo_*
