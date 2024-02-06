@@ -109,3 +109,14 @@ Upgrade pip
 pip install --upgrade pip wheel
 ```
 
+Install requirements
+
+```shell
+pip install -r requirements.txt
+```
+
+Run the test script which copies files to a remote server (HPC running SLURM) and submits a job.
+
+```shell
+python3 test_messy.py
+```
