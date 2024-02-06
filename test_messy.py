@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""_summary_
+"""A script to test Messy class
 """
 
 from Messy import Messy
@@ -13,3 +13,7 @@ if __name__ == "__main__":
     )
 
     messy.submit_job()
+    messy.get_files(
+        remote_folder="/home/xenon/",
+        local_folder="./"
+    )

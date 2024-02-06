@@ -33,62 +33,40 @@ import paramiko
 # setup logging
 paramiko.util.log_to_file("demo_sftp.log")
 
+script_name = print(sys.argv[0])
+
 # Paramiko client configuration
 hostname= "localhost"
 Port = 10022
 username = "xenon"
+remote_folder="demo_sftp_folder"
 password = getpass.getpass('Enter your password: ')
-
-
-# get host key, if we know one
-hostkeytype = None
-hostkey = None
-try:
-    host_keys = paramiko.util.load_host_keys(
-        os.path.expanduser("~/.ssh/known_hosts")
-    )
-except IOError:
-    try:
-        # try ~/ssh/ too, because windows can't have a folder named ~/.ssh/
-        host_keys = paramiko.util.load_host_keys(
-            os.path.expanduser("~/ssh/known_hosts")
-        )
-    except IOError:
-        print("*** Unable to open host keys file")
-        host_keys = {}
-
-if hostname in host_keys:
-    hostkeytype = host_keys[hostname].keys()[0]
-    hostkey = host_keys[hostname][hostkeytype]
-    print("Using host key of type %s" % hostkeytype)
 
 # now, connect and use paramiko Transport to negotiate SSH2 across the connection
 try:
-    t = paramiko.Transport((hostname, Port))
-    t.connect(
-        hostkey,
-        username,
-        password,
-        gss_host=socket.getfqdn(hostname),
+    transport = paramiko.Transport((hostname, Port))
+    transport.connect(
+        username=username,
+        password=password
     )
-    sftp = paramiko.SFTPClient.from_transport(t)
+    sftp = paramiko.SFTPClient.from_transport(transport)
 
     # dirlist on remote host
     dirlist = sftp.listdir(".")
     print("Dirlist: %s" % dirlist)
 
-    # copy this demo onto the server
+    # copy this files onto the server
+    # create a folder
     try:
-        sftp.mkdir("demo_sftp_folder")
+        sftp.mkdir(remote_folder)
     except IOError:
-        print("(assuming demo_sftp_folder/ already exists)")
+        print(f"(assuming {remote_folder}/ already exists)")
 
-    with sftp.open("demo_sftp_folder/README", "w") as f:
-        f.write("This was created by test_copy_files.py.\n")
+    with sftp.open(f"{remote_folder}/README", "w") as f:
+        f.write(f"This was created by {script_name}.\n")
 
     with open("requirements.txt", "r") as f:
         data = f.read()
-
     sftp.open("demo_sftp_folder/requirements.txt", "w").write(data)
     print("created demo_sftp_folder/ on the server")
 
