@@ -67,3 +67,21 @@ ssh -p 10022 xenon@localhost
 
 The password for xenon user is `javagat`.
 
+After connecting start a new `bash` shell by running
+
+```shell
+bash
+```
+
+You can now submit a test jobs:
+
+```shell
+sbatch /home/xenon/test-slurm.job
+```
+
+You can check the status of the job with
+
+```shell
+squeue
+sacct
+```
