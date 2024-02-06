@@ -1,22 +1,33 @@
-import paramiko
-import getpass
 import time
+import getpass
+import paramiko
+
+# setup logging
+paramiko.util.log_to_file("Messy.log")
 
 class Messy:
     """This is a class to submit jobs to SLURM cluster
     """
-
     def __init__(self, username, hostname, port) -> None:
         self.username = username
         self.hostname = hostname
         self.port = port
         self.password = self.get_password()
+        self.transport = self.set_transport()
         self.ssh_client = self.set_ssh_client()
+        self.sftp_client = self.set_sftp_client()
 
     def get_password(self) -> str:
         """Sets user password"""
         password = getpass.getpass('Enter your password: ')
         return password
+
+    def set_transport(self) -> paramiko.Transport:
+        """
+        Creates an paramiko transport
+        """
+        transport = paramiko.Transport((self.hostname, self.port))
+        return transport
 
     def set_ssh_client(self) -> paramiko.SSHClient:
         """
@@ -32,17 +43,42 @@ class Messy:
         )
         return ssh_client
 
-    def put_files(self) -> None:
+    def set_sftp_client(self) -> paramiko.SFTPClient:
+        """
+        Creates a SFTP client
+        """
+        self.transport.connect(
+            username=self.username,
+            password=self.password
+        )
+        sftp_client = paramiko.SFTPClient.from_transport(self.transport)
+        return sftp_client
+
+    def put_files(self, remote_folder: str) -> None:
         """
         Put files to the remote server
         """
         pass
 
-    def get_files(self) -> None:
+    def create_remote_folder(self, remote_folder: str) -> None:
+        """
+        Create a folder in the remote server
+        """
+        try:
+            self.sftp_client.mkdir(remote_folder)
+        except IOError:
+            print(f"(assuming {remote_folder}/ already exists)")
+
+    def get_files(self, remote_folder: str, local_folder: str = "./") -> None:
         """
         Get files from the remote server
         """
-        pass
+        remote_files = self.sftp_client.listdir(remote_folder)
+
+        for file in remote_files:
+            filepath = remote_folder + file
+            localpath = local_folder + file
+            self.sftp_client.get(filepath, localpath)
 
     def submit_job(self) -> None:
         """
