@@ -56,12 +56,6 @@ class Messy:
         sftp_client = paramiko.SFTPClient.from_transport(self.transport)
         return sftp_client
 
-    def put_files(self, remote_folder: str) -> None:
-        """
-        Put files to the remote server
-        """
-        pass
-
     def create_remote_folder(self, remote_folder: str) -> None:
         """
         Create a folder in the remote server
@@ -90,6 +84,42 @@ class Messy:
                 self.get_files(remotepath, localpath)
             elif S_ISREG(mode):
                 self.sftp_client.get(remotepath, localpath)
+
+    def put_files(self, remote_folder: str = "~", local_folder: str = "./", verbose: bool = False) -> None:
+        """
+        Copy files to the remote server
+        """
+        if remote_folder == "~":
+            remote_folder = os.path.expanduser("~")
+
+        local_folder_dirname = os.path.dirname(local_folder)
+        local_folder_basename = os.path.basename(local_folder)
+
+        if verbose:
+            print(f'local_folder_dirname: {local_folder_dirname}')
+            print(f'local_folder_basename: {local_folder_basename}')
+
+        for dirpath, dirnames, filenames in os.walk(local_folder):
+            file_dirpath = dirpath[len(local_folder)+1:]
+            remote_path = os.path.join(remote_folder, local_folder_basename, file_dirpath)
+            if verbose:
+                print('\n' + '-'*20 + '\n')
+                print(f'dirpath: {dirpath}')
+                print(f'dirnames: {dirnames}')
+                print(f'remote_path: {remote_path}')
+                print(f'file_dirpath: {file_dirpath}')
+
+            try:
+                self.sftp_client.listdir(remote_path)
+            except IOError:
+                self.sftp_client.mkdir(remote_path)
+
+            for filename in filenames:
+                path_1 = os.path.join(dirpath, filename)
+                path_2 = os.path.join(remote_path, filename)
+                self.sftp_client.put(path_1, path_2)
+                if verbose:
+                    print(f'\nfilename: {filename}  \n    path_1: {path_1}  \n    path_2: {path_2}')
 
 
     def submit_job(self) -> None:
