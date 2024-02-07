@@ -130,8 +130,44 @@ class Messy:
         print(f'Submitted job with id: {job_id}')
         return job_id, stdin, stdout, stderr
 
-    def monitor_jobs(self) -> None:
+    def check_queue(self) -> None:
         """
         Check job status
         """
-        pass
+        sleeptime = 0.001
+        outdata, errdata = '', ''
+        ssh_transport = self.ssh_client.get_transport()
+        ssh_session = ssh_transport.open_session()
+        ssh_session.settimeout(3 * 60 * 60)
+        ssh_session.setblocking(0)
+        ssh_session.exec_command('squeue --all')
+
+        while True:  # monitoring process
+            # Reading from output streams
+            while ssh_session.recv_ready():
+                stdout = ssh_session.recv(1000).decode("utf-8")
+                outdata += stdout
+                # print(stdout, end="")
+            while ssh_session.recv_stderr_ready():
+                stderr = ssh_session.recv_stderr(1000).decode("utf-8")
+                errdata += stderr
+            if ssh_session.exit_status_ready():  # If completed
+                break
+            time.sleep(sleeptime)
+
+        return_code = ssh_session.recv_exit_status()
+        ssh_transport.close()
+
+        # if (self.ssh_client):
+        #     stdin, stdout, stderr = self.ssh_client.exec_command("squeue", get_pty=True)
+        #     while not stdout.channel.exit_status_ready():
+        #         OUT = stdout.channel.recv(1024)
+        #         print(OUT, end="")
+        # else:
+        #     print("Connection not opened.")
+
+        # print(f"return_code: {return_code}")
+        # print(f"outdata: {outdata}")
+        # print(f"errdata: {errdata}")
+
+        return return_code, outdata, errdata
