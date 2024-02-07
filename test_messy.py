@@ -14,6 +14,6 @@ if __name__ == "__main__":
 
     messy.submit_job()
     messy.get_files(
-        remote_folder="/home/xenon/",
-        local_folder="./"
+        remote_folder="/home/xenon/filesystem-test-fixture",
+        local_folder="./copy_test"
     )

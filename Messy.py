@@ -1,6 +1,8 @@
+import os
 import time
 import getpass
 import paramiko
+from stat import S_ISDIR, S_ISREG
 
 # setup logging
 paramiko.util.log_to_file("Messy.log")
@@ -73,12 +75,22 @@ class Messy:
         """
         Get files from the remote server
         """
-        remote_files = self.sftp_client.listdir(remote_folder)
+        if not os.path.exists(local_folder):
+            os.mkdir(local_folder)
 
-        for file in remote_files:
-            filepath = remote_folder + file
-            localpath = local_folder + file
-            self.sftp_client.get(filepath, localpath)
+        for entry in self.sftp_client.listdir_attr(remote_folder):
+            remotepath = remote_folder + "/" + entry.filename
+            localpath = os.path.join(local_folder, entry.filename)
+            mode = entry.st_mode
+            if S_ISDIR(mode):
+                try:
+                    os.mkdir(localpath)
+                except OSError:
+                    pass
+                self.get_files(remotepath, localpath)
+            elif S_ISREG(mode):
+                self.sftp_client.get(remotepath, localpath)
+
 
     def submit_job(self) -> None:
         """
