@@ -29,3 +29,9 @@ if __name__ == "__main__":
         remote_folder="/home/xenon/test_folder",
         local_folder="./copy_of_test_folder"
     )
+
+    return_code, outdata, errdata = messy.check_queue()
+
+    print(f'return_code: {return_code}')
+    print(f'{errdata}')
+    print(f'{outdata}')
