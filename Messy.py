@@ -121,16 +121,17 @@ class Messy:
                 if verbose:
                     print(f'\nfilename: {filename}  \n    path_1: {path_1}  \n    path_2: {path_2}')
 
-
-    def submit_job(self) -> None:
+    def submit_job(self, job_file: str) -> None:
         """
         Submit job to SLURM cluster
         """
-        stdin, stdout, stderr = self.ssh_client.exec_command('sbatch /home/xenon/test-slurm.job')
+        stdin, stdout, stderr = self.ssh_client.exec_command(f'sbatch {job_file}')
         job_id = int(stdout.read().decode().split()[-1])
-        print(f'Submitted job with ID {job_id}')
+        print(f'Submitted job with id: {job_id}')
+        return job_id, stdin, stdout, stderr
 
     def monitor_jobs(self) -> None:
         """
         Check job status
         """
+        pass
