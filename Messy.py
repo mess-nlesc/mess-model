@@ -158,16 +158,4 @@ class Messy:
         return_code = ssh_session.recv_exit_status()
         ssh_transport.close()
 
-        # if (self.ssh_client):
-        #     stdin, stdout, stderr = self.ssh_client.exec_command("squeue", get_pty=True)
-        #     while not stdout.channel.exit_status_ready():
-        #         OUT = stdout.channel.recv(1024)
-        #         print(OUT, end="")
-        # else:
-        #     print("Connection not opened.")
-
-        # print(f"return_code: {return_code}")
-        # print(f"outdata: {outdata}")
-        # print(f"errdata: {errdata}")
-
         return return_code, outdata, errdata
