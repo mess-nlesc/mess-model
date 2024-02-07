@@ -16,7 +16,7 @@ if __name__ == "__main__":
     job_id, stdin, stdout, stderr = messy.submit_job(
         job_file="/home/xenon/test-slurm.job"
     )
-    print(f'job_id {job_id}')
+    print(f'job_id: {job_id}')
 
     # copy files to the server
     messy.put_files(

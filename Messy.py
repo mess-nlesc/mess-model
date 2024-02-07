@@ -21,7 +21,7 @@ class Messy:
 
     def get_password(self) -> str:
         """Sets user password"""
-        password = getpass.getpass('Enter your password: ')
+        password = getpass.getpass(f'password for {self.username}@{self.hostname}: ')
         return password
 
     def set_transport(self) -> paramiko.Transport:
