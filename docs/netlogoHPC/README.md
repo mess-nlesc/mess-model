@@ -68,6 +68,9 @@ tar -xzvf jobHPC.tar.gz
 
 ## Run model on HPC
 
+Submit job to a SLURM scheduler on HPC using the following command:
+
 ```shell
 sbatch --time=0-02:00:00 job.sh
 ```
+We set a limit of 2 hours for the job to run. You can change the time limit as per your requirement.
