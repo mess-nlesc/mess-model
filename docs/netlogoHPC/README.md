@@ -31,7 +31,7 @@ Alternatively, you can run your own model  `main.nlogo` with an experiment `expe
 
 ```shell
 #!/bin/bash  
-apptainer exec NetlogoContainer/netlogo.sif netlogo-headless.sh --model "model/main.nlogo" --experiment "RD40to200_GC30_CSPHY3__50years" --table output.csv
+apptainer exec netlogo-headless.sif netlogo-headless.sh --model "model/main.nlogo" --experiment "RD40to200_GC30_CSPHY3__50years" --table output.csv
 ```    
 
 Place the code in the file `job.sh`, then change permissions to make it executable with
@@ -42,8 +42,8 @@ chmod +x job.sh
 
 ## Create archive to be copied to HPC 
 
-Copy `model`, `container.sif`, and `job.sh` in the directory, say `jobHPC`.
-Where `model` is a given model, `container.sif` is a container and `job.sh` is a shell script that contains command to be run.
+Copy `model`, `netlogo-headless.sif`, and `job.sh` in the directory, say `jobHPC`.
+Where `model` is a given model, `netlogo-headless.sif` is a container and `job.sh` is a shell script that contains command to be run.
 
 Create a gzip tarball of a directory.
 
