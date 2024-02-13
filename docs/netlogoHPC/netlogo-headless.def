@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: adoptopenjdk/openjdk16
+From: openjdk:17
 
 %arguments
     NETLOGO_VERSION=6.3.0
