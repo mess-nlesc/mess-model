@@ -50,3 +50,6 @@ if __name__ == "__main__":
     # # run a command on the remote system
     # messy.run_command_on_remote(command='ls -la', flush=True)
     # messy.run_command_on_remote(command='ls /')
+
+    # # watch the slurm queue
+    # messy.watch_slurm_queue()
