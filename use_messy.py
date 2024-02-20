@@ -6,11 +6,7 @@ from Messy import Messy
 
 if __name__ == "__main__":
 
-    messy = Messy(
-        username='xenon',
-        hostname='localhost',
-        port=10022
-    )
+    messy = Messy(username="xenon", hostname="localhost", port=10022)
 
     # # submit a new job
     # job_id, stdin, stdout, stderr = messy.submit_job(
