@@ -1,16 +1,24 @@
+"""Submit jobs to HPC
+
+Returns:
+    _type_: _description_
+"""
+
+
 import os
 import time
 import getpass
-import paramiko
 from stat import S_ISDIR, S_ISREG
+import paramiko
 
 # setup logging
 paramiko.util.log_to_file("Messy.log")
 
+
 class Messy:
-    """This is a class to submit jobs to SLURM cluster
+    """Submit jobs to SLURM cluster
     """
-    def __init__(self, username, hostname, port) -> None:
+    def __init__(self, username: str, hostname: str, port: int) -> None:
         self.username = username
         self.hostname = hostname
         self.port = port
@@ -38,7 +46,7 @@ class Messy:
         ssh_client = paramiko.SSHClient()
         ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         ssh_client.connect(
-            self.hostname,
+            hostname=self.hostname,
             port=self.port,
             username=self.username,
             password=self.password
