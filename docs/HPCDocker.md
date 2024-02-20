@@ -1,7 +1,7 @@
 ## Requirements
 
-- Apptainer (https://apptainer.org/)
-- Python3
+- Apptainer 1.2.5 or newer (https://apptainer.org/)
+- Python 3.11.X or newer
 
 ## 1. Prepare and run Apptainer Image
 
@@ -41,7 +41,6 @@
     apptainer exec netlogo_6.3.0.sif /opt/netlogo/bin/NetLogo
     ```
 
-
 ## 2. Set up a local SLURM cluster
 
 To emulate an HPC system we will run [SLURM](Workload Manager) workload manager in a Docker container. The Docker image we will use canbe found at [`xenon-docker-images`](https://github.com/xenon-middleware/xenon-docker-images.git) repository.
@@ -63,16 +62,11 @@ This will start the service in the background and you will be able to connect to
 To connect run:
 
 ```shell
-ssh -p 10022 xenon@localhost
+ssh -p 10022 xenon@localhost -t /bin/bash
 ```
 
 The password for xenon user is `javagat`.
 
-After connecting start a new `bash` shell by running
-
-```shell
-bash
-```
 
 **Note: It may take a few minutes for SLURM service to start. Please be patient ;)**
 
