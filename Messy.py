@@ -167,6 +167,18 @@ class Messy:
         """Check whether `command` is on PATH and marked as executable."""
         return which(command) is not None
 
+    def check_required_tools(self, command_list: list[str]) -> bool:
+        """Check whether all required commands are available."""
+
+        # TODO: also check the required versions
+
+        if all(self.check_command_exists(command) for command in command_list):
+            print('Have all the required external tools.')
+            return True
+        else:
+            return False
+
+
     def check_queue(self) -> None:
         """
         Check job status
