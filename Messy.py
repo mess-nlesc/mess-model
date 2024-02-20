@@ -12,6 +12,7 @@ import subprocess
 from shutil import which
 from stat import S_ISDIR, S_ISREG
 import paramiko
+import jinja2
 
 # setup logging
 paramiko.util.log_to_file("Messy.log")
@@ -178,6 +179,25 @@ class Messy:
         else:
             return False
 
+    def generate_job_file(self, job_name: str, sif_file_path: str, model_path: str, experiment_name: str, table_name: str, job_time: str) -> None:
+        """Generate batch script file for job submission."""
+
+        environment = jinja2.Environment(loader=jinja2.FileSystemLoader("templates/"))
+        template = environment.get_template("netlogo_job.jinja")
+
+        filename = f"{job_name}.sh"
+        content = template.render(
+            job_name=job_name,
+            sif_file_path=sif_file_path,
+            job_time=job_time,
+            model_path=model_path,
+            experiment_name=experiment_name,
+            table_name=table_name
+        )
+
+        with open(filename, mode="w", encoding="utf-8") as message:
+            message.write(content)
+            print(f"Batch job file was saved as {filename}")
 
     def check_queue(self) -> None:
         """
