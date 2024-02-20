@@ -46,3 +46,7 @@ if __name__ == "__main__":
     #     experiment_name="test_experiment",
     #     table_name="table_name"
     # )
+
+    # # run a command on the remote system
+    # messy.run_command_on_remote(command='ls -la', flush=True)
+    # messy.run_command_on_remote(command='ls /')
