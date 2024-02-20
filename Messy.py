@@ -6,6 +6,7 @@ Returns:
 
 import sys
 import os
+import time
 import getpass
 import subprocess
 from shutil import which
@@ -219,3 +220,12 @@ class Messy:
         # https://stackoverflow.com/a/11474509
         if flush:
             sys.stdout.write("\033[F"*len(stdout_lines))  # Cursor up for X number of lines
+
+    def watch_slurm_queue(self, sleep_time: float = 5.0) -> None:
+        """_summary_
+        """
+        # command = 'squeue --all'
+        command = 'ls /home/xenon'
+        while True:
+            self.run_command_on_remote(command=command, timeout=5, flush=True)
+            time.sleep(sleep_time)
