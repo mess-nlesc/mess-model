@@ -8,6 +8,7 @@ Returns:
 import os
 import time
 import getpass
+import subprocess
 from stat import S_ISDIR, S_ISREG
 import paramiko
 
