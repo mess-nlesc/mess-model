@@ -9,6 +9,7 @@ import os
 import time
 import getpass
 import subprocess
+from shutil import which
 from stat import S_ISDIR, S_ISREG
 import paramiko
 
