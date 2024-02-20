@@ -126,11 +126,11 @@ class Messy:
                 self.sftp_client.mkdir(remote_path)
 
             for filename in filenames:
-                path_1 = os.path.join(dirpath, filename)
-                path_2 = os.path.join(remote_path, filename)
-                self.sftp_client.put(path_1, path_2)
+                from_path = os.path.join(dirpath, filename)
+                to_path = os.path.join(remote_path, filename)
+                self.sftp_client.put(from_path, to_path)
                 if verbose:
-                    print(f'\nfilename: {filename}  \n    path_1: {path_1}  \n    path_2: {path_2}')
+                    print(f'\ncopying: {filename}\n  from: {from_path}\n  to: {to_path}')
 
     def submit_job(self, job_file: str) -> None:
         """
