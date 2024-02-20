@@ -30,3 +30,6 @@ if __name__ == "__main__":
     #     local_folder="./copy_of_test_folder"
     # )
 
+    # check if the required tools (commands) available on the host system
+    requirements_status = messy.check_required_tools(['docker', 'apptainer'])
+    print(f'Requirements status: {requirements_status}')
