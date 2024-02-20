@@ -162,6 +162,10 @@ class Messy:
             print(process.stderr)
             return False
 
+    def check_command_exists(self, command: str) -> bool:
+        """Check whether `command` is on PATH and marked as executable."""
+        return which(command) is not None
+
     def check_queue(self) -> None:
         """
         Check job status
