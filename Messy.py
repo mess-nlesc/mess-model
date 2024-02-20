@@ -4,9 +4,8 @@ Returns:
     _type_: _description_
 """
 
-
+import sys
 import os
-import time
 import getpass
 import subprocess
 from shutil import which
@@ -199,3 +198,24 @@ class Messy:
             message.write(content)
             print(f"Batch job file was saved as {filename}")
 
+    def run_command_on_remote(self, command: str, timeout: int = 5, flush: bool = False) -> None:
+        """Run a command on a remote system
+        """
+        transport = self.ssh_client.get_transport()
+        channel = transport.open_session()
+        channel.get_pty()
+        channel.settimeout(timeout)
+        channel.set_combine_stderr(True)
+        stdout = channel.makefile()
+        channel.exec_command(command)
+
+        stdout_lines = stdout.readlines()
+        for line in stdout_lines:
+            if flush:
+                print(line, end="", flush=True)
+            else:
+                print(line, end="")
+
+        # https://stackoverflow.com/a/11474509
+        if flush:
+            sys.stdout.write("\033[F"*len(stdout_lines))  # Cursor up for X number of lines
