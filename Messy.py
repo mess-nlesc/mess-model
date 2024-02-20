@@ -141,6 +141,26 @@ class Messy:
         print(f'Submitted job with id: {job_id}')
         return job_id, stdin, stdout, stderr
 
+    def build_apptainer_image(self, netlogo_version: str) -> bool:
+        """Builds a netlogo apptainer image
+        """
+        docker_image = f'comses/netlogo:{netlogo_version}'
+        apptainer_file = f'netlogo_{netlogo_version}.sif'
+        build_command = f'apptainer pull docker://{docker_image}'
+
+        process = subprocess.Popen(build_command, shell=True)
+        process.wait()
+
+        # TODO: handle process status mor ecarefully: what happens if the file exists?
+        if (os.path.isfile(apptainer_file)):
+            print(f'Generated {apptainer_file}')
+            # print(process.stdout)
+            return True
+        else:
+            print('Image generation has failed.')
+            print(process.stderr)
+            return False
+
     def check_queue(self) -> None:
         """
         Check job status
