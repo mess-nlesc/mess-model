@@ -37,3 +37,12 @@ if __name__ == "__main__":
     # # build the apptainer image from the docker image
     # image_build_status = messy.build_apptainer_image(netlogo_version='6.3.0')
     # print(f'Image build status: {image_build_status}')
+
+    # # generate a slurm job file
+    # messy.generate_job_file(
+    #     job_name='messy_experiment_job',
+    #     job_time='0:30:00',
+    #     model_path="/home/model/path",
+    #     experiment_name="test_experiment",
+    #     table_name="table_name"
+    # )
