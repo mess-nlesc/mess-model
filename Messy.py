@@ -32,7 +32,9 @@ class Messy:
 
     def get_password(self) -> str:
         """Sets user password"""
-        password = getpass.getpass(f"password for {self.username}@{self.hostname}: ")
+        password = getpass.getpass(
+            f"password for {self.username}@{self.hostname}: "
+        )
         return password
 
     def set_transport(self) -> paramiko.Transport:
@@ -97,7 +99,10 @@ class Messy:
                 print("Unknown type encountered when running get_files method")
 
     def put_files(
-        self, remote_folder: str = "~", local_folder: str = "./", verbose: bool = False
+        self,
+        remote_folder: str = "~",
+        local_folder: str = "./",
+        verbose: bool = False,
     ) -> None:
         """
         Copy files to the remote server
@@ -142,7 +147,9 @@ class Messy:
         """
         Submit job to SLURM cluster
         """
-        stdin, stdout, stderr = self.ssh_client.exec_command(f"sbatch {job_file}")
+        stdin, stdout, stderr = self.ssh_client.exec_command(
+            f"sbatch {job_file}"
+        )
         job_id = int(stdout.read().decode().split()[-1])
         print(f"Submitted job with id: {job_id}")
         return job_id, stdin, stdout, stderr
@@ -192,7 +199,9 @@ class Messy:
     ) -> None:
         """Generate batch script file for job submission."""
 
-        environment = jinja2.Environment(loader=jinja2.FileSystemLoader("templates/"))
+        environment = jinja2.Environment(
+            loader=jinja2.FileSystemLoader("templates/")
+        )
         template = environment.get_template("netlogo_job.jinja")
 
         filename = f"{job_name}.sh"
