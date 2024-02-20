@@ -7,3 +7,6 @@ venv
 
 *demo_*
 *.log
+
+copy_of_test_folder
+__pycache__
