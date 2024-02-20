@@ -92,6 +92,9 @@ class Messy:
                 self.get_files(remotepath, localpath)
             elif S_ISREG(mode):
                 self.sftp_client.get(remotepath, localpath)
+            else:
+                # TODO: throw an exception here
+                print("Unknown type encountered when running get_files method")
 
     def put_files(self, remote_folder: str = "~", local_folder: str = "./", verbose: bool = False) -> None:
         """
