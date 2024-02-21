@@ -83,7 +83,7 @@ squeue
 sacct
 ```
 
-## 3. Use pyxenon to submit jobs
+## 3. Use Messy code to submit jobs
 
 Create a new Python virtual environment
 
@@ -112,5 +112,5 @@ pip install -r requirements.txt
 Run the test script which copies files to a remote server (HPC running SLURM) and submits a job.
 
 ```shell
-python3 test_messy.py
+python3 use_messy.py
 ```
