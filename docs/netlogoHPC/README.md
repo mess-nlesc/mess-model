@@ -1,3 +1,6 @@
+## Introduction
+This document describes how to run a single Netlogo model on HPC using Apptainer container. We use the [Netlogo installation file](https://ccl.northwestern.edu/netlogo/6.3.0/NetLogo-6.3.0-64.tgz) as a base for our Apptainer container. The Apptainer container is then used to run the model in headless mode on HPC. The output is saved in a csv file.
+
 ## Requirements
 - Apptainer (https://apptainer.org/)
 
