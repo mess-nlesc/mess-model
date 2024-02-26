@@ -37,10 +37,11 @@ if __name__ == "__main__":
     # # generate a slurm job file
     # messy.generate_job_file(
     #     job_name='messy_experiment_job',
-    #     job_time='0:30:00',
     #     model_path="/home/model/path",
+    #     sif_file_path="/home/xenon/netlogo_6.3.0.sif",
     #     experiment_name="test_experiment",
     #     table_name="table_name"
+    #     job_time='0:30:00',
     # )
 
     # # run a command on the remote system
