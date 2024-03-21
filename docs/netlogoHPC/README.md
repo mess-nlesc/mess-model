@@ -40,7 +40,7 @@ Alternatively, you can run your own model  `main.nlogo` with an experiment `expe
 apptainer exec netlogo-headless.sif netlogo-headless.sh --model "model/main.nlogo" --experiment "RD40to200_GC30_CSPHY3__50years" --table output.csv
 ```    
 
-Place the code in the file `job.sh`, then change permissions to make it executable with
+Save the code above as `job.sh`, then change permissions to make it executable with
 
 ```shell
 chmod +x job.sh
