@@ -24,7 +24,7 @@ This will create an apptainer image `netlogo-headless.sif` from the correspondin
 This line of code will execute a `netlogo-headless.sh` command within a singularity container. `--model` is an argument that specifies the NetLogo model to be run. The `--experiment` argument is optional and can be used to specify the name of the experiment. The `--table` argument is optional and can be used to specify the name of the output file.
 
 ```shell
-apptainer exec netlogo-headless.sif netlogo-headless.sh --model "PATH TO MODEL IN YOUR HOME DIR" --experiment "EXPERIMENT NAME" --table OUTPUT.CSV
+apptainer exec netlogo-headless.sif netlogo-headless.sh --model "PATH_TO_MODEL" --experiment "EXPERIMENT_NAME" --table OUTPUT.CSV
 ```
 
 For example to run a model `Wolf Sheep Simple 5.nlogo` with an experiment `Wolf Sheep Simple model analysis` and save the output in `wolf_sheep_output.csv`, use the following command.
