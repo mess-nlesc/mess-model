@@ -46,7 +46,7 @@ Save the code above as `job.sh`, then change permissions to make it executable w
 chmod +x job.sh
 ```
 
-## Create archive to be copied to HPC 
+## Create an archive to be copied to HPC
 
 Copy `model`, `netlogo-headless.sif`, and `job.sh` in the directory, say `jobHPC`.
 Where `model` is a given model, `netlogo-headless.sif` is a container and `job.sh` is a shell script that contains command to be run.
