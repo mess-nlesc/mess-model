@@ -17,7 +17,7 @@ Build an apptainer container from a definition file. A Linux system with sudo ri
 sudo apptainer build netlogo-headless.sif netlogo-headless.def
 ```
 
-This will create an image `netlogo-headless.sif` from the corresponding definition file in the current directory. This image can be used to run the model in headless mode on HPC.
+This will create an apptainer image `netlogo-headless.sif` from the corresponding definition file in the current directory. This image can be used to run the model in headless mode on HPC.
 
 ## Prepare `job.sh` file
 
