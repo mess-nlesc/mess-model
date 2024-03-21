@@ -1,14 +1,14 @@
 ## Motivation
 Imagine you have a Netlogo model that you want to run on a High-Performance Computing (HPC) system. You have access to the HPC system via SSH, but you do not have the necessary permissions to install Netlogo on the system or you do not know how. Also you want to run the model without Graphical User Interface (GUI) because it avoids overhead and makes your model run faster.
 
+## Purpose
+The purpose of this document is to demostrate how to run a single Netlogo model on HPC using [Apptainer](https://apptainer.org/) container. We use the [Netlogo](https://ccl.northwestern.edu/netlogo/6.3.0/NetLogo-6.3.0-64.tgz) installation file as a base for the container. Apptainer container allows to package model and dependencies (i.e. Netlogo) in a single image that can be run uniformly across different systems with different environments. Apptainer is particularly suitable for HPC, as it integrates with common job schedulers and does not require root access to run. The container is then used to run the Netlogo model in headless mode. The headless mode is a mode in which the model is run without the graphical user interface and he output is saved in a csv file.
+
 ## Requirements
 - Apptainer 
 - a Linux system with sudo rights
 - BASH shell
 - access to a HPC system via SSH
-
-## Purpose
-The purpose of this document is to demostrate how to run a single Netlogo model on HPC using [Apptainer](https://apptainer.org/) container. We use the [Netlogo](https://ccl.northwestern.edu/netlogo/6.3.0/NetLogo-6.3.0-64.tgz) installation file as a base for the container. Apptainer container allows to package model and dependencies (i.e. Netlogo) in a single image that can be run uniformly across different systems with different environments. Apptainer is particularly suitable for HPC, as it integrates with common job schedulers and does not require root access to run. The container is then used to run the Netlogo model in headless mode. The headless mode is a mode in which the model is run without the graphical user interface and he output is saved in a csv file.
 
 ## Build a container
 Build an apptainer container on a local machine from a definition file. A Linux system with sudo rights is needed. 
