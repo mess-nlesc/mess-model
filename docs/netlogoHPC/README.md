@@ -76,7 +76,7 @@ Replace `username@remote` with your username and the address of the HPC cluster.
 
 ## Unpack the archive on HPC
 
-Once file is copied to the HPC cluster, we can unpack the archive using the following command:
+Once file is copied to the HPC cluster, login to the remote machine and unpack the archive using the following command:
 
 ```shell
 tar -xzvf jobHPC.tar.gz
@@ -84,7 +84,7 @@ tar -xzvf jobHPC.tar.gz
 
 ## Run model on HPC
 
-Submit job to a SLURM scheduler on HPC using the following command:
+Submit job to a (SLURM) scheduler on HPC using the following command:
 
 ```shell
 sbatch --time=0-02:00:00 job.sh
